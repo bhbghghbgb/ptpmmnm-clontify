@@ -1,0 +1,6 @@
+[submodule "clontify_server"]
+	path = clontify_server
+	url = https://github.com/tuanhao2003/clontify_server.git
+[submodule "fe-spotify"]
+	path = fe-spotify
+	url = https://github.com/Thanhloc913/fe-spotify.git

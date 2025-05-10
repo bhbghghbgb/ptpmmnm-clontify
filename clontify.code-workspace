@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"name": "fe-spotify",
+			"path": "fe-spotify"
+		},
+		{
+			"path": "clontify_server"
+		}
+	],
+	"settings": {}
+}
