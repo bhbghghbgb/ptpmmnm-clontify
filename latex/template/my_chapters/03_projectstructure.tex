@@ -1,0 +1,252 @@
+% \chapter{Project Structure and Features}
+\chapter{Cấu trúc dự án và các tính năng}
+\label{ch:project_structure}
+
+\section{Cấu trúc mã nguồn và mô hình ứng dụng}
+\label{sec:source_code_structure}
+
+Dự án Spotify Clone được xây dựng theo kiến trúc microservice, với mã nguồn được tổ chức trong thư mục gốc. Môi trường phát triển được thiết lập bằng Dev Containers và công cụ quản lý gói \texttt{uv}. File \texttt{serverclontify.sql} được sử dụng để mount vào PostgreSQL, đóng vai trò như một bản backup cơ sở dữ liệu. Thư mục \texttt{baseSetup} chứa các file mẫu để tạo nhanh các service mới.
+
+\subsection{Cấu trúc thư mục gốc}
+\label{subsec:root_directory_structure}
+
+Cấu trúc thư mục gốc của dự án bao gồm:
+
+\begin{verbatim}
+./
++-- appServices/
+|   +-- auth/
+|   +-- common/
+|   +-- music/
+|   +-- storage/
+|   +-- users/
++-- baseSetup/
++-- database/
++-- .devcontainer/
++-- example.env
++-- images/
++-- requirements.txt
++-- serverclontify.sql
++-- test/
++-- uv.lock
++-- pyproject.toml
+\end{verbatim}
+
+Trong đó:
+\begin{itemize}
+    \item \texttt{appServices/}: Chứa các microservice của ứng dụng.
+    \item \texttt{baseSetup/}: Chứa các file cấu hình mẫu để tạo service mới.
+    \item \texttt{database/}: Chứa các script liên quan đến cơ sở dữ liệu.
+    \item \texttt{.devcontainer/}: Chứa cấu hình cho môi trường phát triển Dev Containers.
+    \item \texttt{.env}: File cho các biến môi trường.
+    \item \texttt{images/}: Chứa các hình ảnh sử dụng trong tài liệu hoặc ứng dụng.
+    \item \texttt{requirements.txt}: Liệt kê các dependency chung của dự án.
+    \item \texttt{serverclontify.sql}: File SQL backup cho cơ sở dữ liệu PostgreSQL.
+    \item \texttt{test/}: Chứa các test case của dự án.
+    \item \texttt{uv.lock}: File lock cho công cụ quản lý gói \texttt{uv}.
+    \item \texttt{pyproject.toml}: File cấu hình cho các công cụ build và quản lý dự án Python.
+\end{itemize}
+
+\subsection{Cấu trúc một Microservice}
+\label{subsec:microservice_structure}
+
+Mỗi microservice trong thư mục \texttt{appServices} được xây dựng dựa trên framework Django và tuân theo mô hình MVC kết hợp pattern Controller/Service/Repository. Cấu trúc thư mục điển hình của một service (ví dụ: \texttt{auth}) như sau:
+
+\begin{verbatim}
+appServices/*/
++-- app/
+|   +-- __init__.py
+|   +-- controllers/
+|   |   +-- ...
+|   +-- entities/
+|   |   +-- ...
+|   +-- grpc/
+|   |   +-- protos/
+|   |       +-- *Service.proto
+|   |       +-- *Service_pb2.py
+|   |       +-- *Service_pb2_grpc.py
+|   +-- migrations/
+|   |   +-- ...
+|   +-- models.py
+|   +-- repositories/
+|   |   +-- ...
+|   +-- serializers/
+|   |   +-- ...
+|   +-- services/
+|   |   +-- ...
+|   +-- urls.py
++-- common/
++-- config/
+|   +-- __init__.py
+|   +-- asgi.py
+|   +-- settings.py
+|   +-- urls.py
+|   +-- wsgi.py
++-- Dockerfile
++-- manage.py
++-- requirements.txt
+\end{verbatim}
+
+Trong đó, thư mục \texttt{app/} chứa các thành phần MVC và pattern C/S/R, thư mục \texttt{grpc/protos/} chứa các file định nghĩa gRPC và các file Python được build từ chúng.
+
+File \texttt{Dockerfile} của mỗi service chịu trách nhiệm build image Docker cho service đó. Quá trình build bao gồm cài đặt các dependency từ \texttt{requirements.txt} và build các file Python từ các file \texttt{.proto}.
+
+\subsection{Các Microservice hiện tại}
+\label{subsec:existing_microservices}
+
+Hiện tại, dự án bao gồm các microservice sau:
+
+\begin{itemize}
+    \item \textbf{auth service}: Quản lý việc đăng ký và đăng nhập người dùng, bao gồm 2 bảng \texttt{account} và \texttt{roles}. Khi đăng ký, service này gọi gRPC sang \texttt{users service} để tạo profile người dùng.
+    \item \textbf{users service}: Quản lý thông tin người dùng thông qua bảng \texttt{profile}. Trong tương lai, service này sẽ có thêm bảng \texttt{favorite} để quản lý quan hệ nhiều-nhiều giữa người dùng và bài hát.
+    \item \textbf{music service}: Quản lý thông tin về nhạc, thể loại và album với 6 bảng: \texttt{albums}, \texttt{albumSong}, \texttt{genres}, \texttt{genreSong}, \texttt{songs}, \texttt{songSubArtist}. Service này tương tác với \texttt{users service} qua gRPC để kiểm tra thông tin người dùng trước khi thêm nhạc hoặc sub-artist, và tương tác với \texttt{storage service} qua gRPC để lấy thông tin về phiên upload trên S3 (lưu ID phiên storage thay vì link trực tiếp).
+    \item \textbf{storage service}: Quản lý các phiên upload thông qua bảng \texttt{storageData}.
+    \item \textbf{common/}: Chứa các module hoặc code dùng chung giữa các service.
+\end{itemize}
+
+\section{Xây dựng Database cho Project}
+\label{sec:database_design}
+
+Dự án sử dụng PostgreSQL làm hệ quản trị cơ sở dữ liệu. Mỗi microservice quản lý các bảng dữ liệu riêng biệt để đảm bảo tính độc lập và phân tách mối quan tâm. Dưới đây là mô tả các bảng dữ liệu chính trong từng microservice:
+
+\subsection{Database của auth service}
+\label{subsec:db_auth_service}
+
+\textbf{Bảng \texttt{accounts}:} Lưu trữ thông tin tài khoản người dùng.
+\begin{itemize}
+    \item \texttt{id} (UUID, primary key): ID duy nhất của tài khoản.
+    \item \texttt{roleId} (UUID): ID của vai trò người dùng, tham chiếu đến bảng \texttt{roles}.
+    \item \texttt{username} (VARCHAR(50), unique): Tên đăng nhập duy nhất của người dùng.
+    \item \texttt{email} (EmailField, unique): Địa chỉ email duy nhất của người dùng.
+    \item \texttt{password} (TEXT): Mật khẩu đã được hash của người dùng.
+\end{itemize}
+\textbf{Bảng \texttt{roles}:} Lưu trữ thông tin về các vai trò người dùng (ví dụ: admin, user).
+\begin{itemize}
+    \item \texttt{id} (UUID, primary key): ID duy nhất của vai trò.
+    \item \texttt{name} (VARCHAR(50), unique): Tên duy nhất của vai trò.
+    \item \texttt{description} (TEXT, nullable): Mô tả chi tiết về vai trò.
+\end{itemize}
+
+\subsection{Database của music service}
+\label{subsec:db_music_service}
+
+\textbf{Bảng \texttt{albums}:} Lưu trữ thông tin về các album nhạc.
+\begin{itemize}
+    \item \texttt{id} (UUID, primary key): ID duy nhất của album.
+    \item \texttt{name} (VARCHAR(255)): Tên của album.
+    \item \texttt{description} (TEXT, nullable): Mô tả chi tiết về album.
+    \item \texttt{storageImageId} (UUID, nullable): ID tham chiếu đến ảnh bìa của album trong bảng \texttt{storageData} của \texttt{storage service}.
+    \item \texttt{artistId} (UUID): ID của nghệ sĩ tạo album.
+\end{itemize}
+\textbf{Bảng \texttt{albumSong}:} Bảng trung gian thể hiện mối quan hệ nhiều-nhiều giữa album và bài hát.
+\begin{itemize}
+    \item \texttt{albumId} (UUID): ID của album, tham chiếu đến bảng \texttt{albums}.
+    \item \texttt{songId} (UUID): ID của bài hát, tham chiếu đến bảng \texttt{songs}.
+    \item \texttt{order} (PositiveIntegerField, nullable): Thứ tự của bài hát trong album.
+\end{itemize}
+\textbf{Bảng \texttt{genres}:} Lưu trữ thông tin về các thể loại nhạc.
+\begin{itemize}
+    \item \texttt{id} (UUID, primary key): ID duy nhất của thể loại.
+    \item \texttt{name} (VARCHAR(100), unique): Tên duy nhất của thể loại.
+    \item \texttt{description} (TEXT, nullable): Mô tả chi tiết về thể loại.
+\end{itemize}
+\textbf{Bảng \texttt{genreSong}:} Bảng trung gian thể hiện mối quan hệ nhiều-nhiều giữa thể loại và bài hát.
+\begin{itemize}
+    \item \texttt{songID} (UUID): ID của bài hát, tham chiếu đến bảng \texttt{songs}.
+    \item \texttt{genreID} (UUID): ID của thể loại, tham chiếu đến bảng \texttt{genres}.
+\end{itemize}
+\textbf{Bảng \texttt{songs}:} Lưu trữ thông tin về các bài hát.
+\begin{itemize}
+    \item \texttt{id} (UUID, primary key): ID duy nhất của bài hát.
+    \item \texttt{title} (VARCHAR(255)): Tiêu đề của bài hát.
+    \item \texttt{description} (VARCHAR, nullable): Mô tả ngắn về bài hát.
+    \item \texttt{artistId} (UUID): ID của nghệ sĩ thể hiện bài hát.
+    \item \texttt{storageId} (UUID, unique): ID tham chiếu đến file âm thanh của bài hát trong bảng \texttt{storageData} của \texttt{storage service}.
+    \item \texttt{storageImageId} (UUID, nullable): ID tham chiếu đến ảnh bìa của bài hát trong bảng \texttt{storageData} của \texttt{storage service}.
+    \item \texttt{duration} (PositiveIntegerField, nullable): Thời lượng của bài hát (tính bằng giây).
+    \item \texttt{songType} (VARCHAR(255)): Loại bài hát (ví dụ: audio, video).
+\end{itemize}
+\textbf{Bảng \texttt{songSubArtist}:} Bảng trung gian thể hiện mối quan hệ nhiều-nhiều giữa bài hát và các nghệ sĩ phụ (sub-artist).
+\begin{itemize}
+    \item \texttt{songID} (UUID): ID của bài hát, tham chiếu đến bảng \texttt{songs}.
+    \item \texttt{subArtistID} (UUID): ID của nghệ sĩ phụ.
+\end{itemize}
+
+\subsection{Database của storage service}
+\label{subsec:db_storage_service}
+
+\textbf{Bảng \texttt{storageData}:} Lưu trữ thông tin về các file đã upload.
+\begin{itemize}
+    \item \texttt{id} (UUID, primary key): ID duy nhất của bản ghi storage.
+    \item \texttt{userId} (UUID): ID của người dùng đã tải file lên.
+    \item \texttt{fileName} (VARCHAR(255), unique): Tên file gốc.
+    \item \texttt{fileType} (VARCHAR(255)): Loại file (ví dụ: audio/mpeg, video/mp4, image/jpeg).
+    \item \texttt{fileSize} (IntegerField): Kích thước file (tính bằng byte).
+    \item \texttt{fileUrl} (URLField, nullable): URL truy cập đến file trên S3.
+    \item \texttt{description} (TEXT, nullable): Mô tả về file.
+\end{itemize}
+
+\subsection{Database của users service}
+\label{subsec:db_users_service}
+
+\textbf{Bảng \texttt{profiles}:} Lưu trữ thông tin hồ sơ người dùng.
+\begin{itemize}
+    \item \texttt{id} (UUID, primary key): ID duy nhất của profile.
+    \item \texttt{accountID} (UUID, unique): ID tham chiếu đến tài khoản người dùng trong bảng \texttt{accounts} của \texttt{auth service}.
+    \item \texttt{fullName} (TEXT(150)): Tên đầy đủ của người dùng.
+    \item \texttt{avatarUrl} (URLField, nullable): URL đến ảnh đại diện của người dùng.
+    \item \texttt{bio} (TEXT(500), nullable): Tiểu sử ngắn của người dùng.
+    \item \texttt{dateOfBirth} (DateField, nullable): Ngày sinh của người dùng.
+    \item \texttt{phoneNumber} (CharField(20), nullable): Số điện thoại của người dùng.
+\end{itemize}
+\begin{comment}
+\textbf{Bảng \texttt{favorite} (sẽ được thêm):} Bảng trung gian thể hiện mối quan hệ nhiều-nhiều giữa người dùng và bài hát yêu thích.
+\begin{itemize}
+    \item \texttt{userId} (UUID): ID của người dùng.
+    \item \texttt{songId} (UUID): ID của bài hát.
+    \item \texttt{timestamp} (DateTimeField): Thời điểm thêm vào danh sách yêu thích.
+    \item \textit{(Có thể có thêm các trường khác)}
+\end{itemize}
+\end{comment}
+
+
+\section{Các tính năng được xây dựng}
+\label{sec:built_features}
+
+Dưới đây là danh sách các tính năng cơ bản đã được xây dựng trong dự án:
+
+\subsection{Chức năng phát nhạc}
+\label{subsec:play_music}
+\textbf{Flowchart:}
+
+[Chỗ để dán flowchart chức năng phát nhạc]
+
+\subsection{Chức năng phát video âm nhạc}
+\label{subsec:play_video}
+\textbf{Flowchart:}
+
+[Chỗ để dán flowchart chức năng phát video âm nhạc]
+
+\subsection{Chức năng tải video âm nhạc}
+\label{subsec:download_video}
+\textbf{Flowchart:}
+
+[Chỗ để dán flowchart chức năng tải video âm nhạc]
+
+\subsection{Chức năng User tạo album, bài hát yêu thích}
+\label{subsec:user_library}
+\textbf{Flowchart:}
+
+[Chỗ để dán flowchart chức năng User tạo album, bài hát yêu thích]
+
+\subsection{Trang Admin}
+\label{subsec:admin_page}
+\textbf{Flowchart:}
+
+[Chỗ để dán flowchart chức năng trang Admin]
+
+\subsection{Tính năng chat tích hợp}
+\label{subsec:chat_feature}
+\textbf{Flowchart:}
+
+[Chỗ để dán flowchart chức năng chat tích hợp]
