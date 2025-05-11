@@ -82,6 +82,20 @@ tlmgr install chktex
 sudo tlmgr install chktex
 ```
 
+### 4.1 Configure System PATH and Enable ChkTeX Linting
+
+After installing TeX Live and ChkTeX, ensure that your system's PATH environment variable includes the path to TeX Live's binaries. This allows Visual Studio Code to access LaTeX commands like `pdflatex` and `latexmk`.
+
+For detailed instructions on setting the PATH environment variable, refer to the [LaTeX Workshop Installation Guide](https://github.com/James-Yu/LaTeX-Workshop/wiki/Install#setting-path-environment-variable).
+
+To enable ChkTeX linting in LaTeX Workshop:
+
+1. Open VS Code.
+2. Navigate to `File` > `Preferences` > `Settings`.
+3. Search for `latex-workshop.linting.chktex.enabled` and ensure it's set to `true`.
+
+For more information on configuring ChkTeX, visit the [LaTeX Workshop Linters Guide](https://github.com/James-Yu/LaTeX-Workshop/wiki/Linters#chktex).
+
 ### 5. Configure LaTeX Workshop (Optional)
 
 You can customize LaTeX Workshop settings by editing the `settings.json` file:
@@ -181,6 +195,20 @@ tlmgr install chktex
 ```bash
 sudo tlmgr install chktex
 ```
+
+### 4.1 Cấu hình biến môi trường PATH và bật kiểm tra lỗi với ChkTeX
+
+Sau khi cài đặt TeX Live và ChkTeX, hãy đảm bảo rằng biến môi trường PATH của hệ thống bao gồm đường dẫn đến thư mục chứa các tệp thực thi của TeX Live. Điều này cho phép Visual Studio Code truy cập các lệnh LaTeX như `pdflatex` và `latexmk`.
+
+Để biết hướng dẫn chi tiết về cách thiết lập biến môi trường PATH, hãy tham khảo [Hướng dẫn Cài đặt LaTeX Workshop](https://github.com/James-Yu/LaTeX-Workshop/wiki/Install#setting-path-environment-variable).
+
+Để bật kiểm tra lỗi với ChkTeX trong LaTeX Workshop:
+
+1. Mở VS Code.
+2. Điều hướng đến `Tệp` > `Tùy chọn` > `Cài đặt`.
+3. Tìm kiếm `latex-workshop.linting.chktex.enabled` và đảm bảo giá trị là `true`.
+
+Để biết thêm thông tin về cấu hình ChkTeX, hãy truy cập [Hướng dẫn Linters của LaTeX Workshop](https://github.com/James-Yu/LaTeX-Workshop/wiki/Linters#chktex).
 
 ### 5. Cấu hình LaTeX Workshop (Tùy chọn)
 
