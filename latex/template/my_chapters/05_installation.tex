@@ -1,0 +1,100 @@
+% \chapter{Installation and Environment Setup}
+\chapter{Cách thức cài đặt và Môi trường chạy ứng dụng}
+\label{ch:installation}
+
+\section{Cài đặt môi trường phát triển (Dev Containers)}
+\label{sec:dev_environment_setup}
+
+Để có một môi trường phát triển nhất quán và dễ dàng thiết lập, dự án này khuyến khích sử dụng Dev Containers. Với Dev Containers, môi trường phát triển đã được cấu hình sẵn trong các container Docker, giúp bạn không cần lo lắng về việc cài đặt các dependency phức tạp trên máy cục bộ.
+
+\textbf{Yêu cầu:}
+\begin{itemize}
+    \item \textbf{Visual Studio Code (VS Code):} Hãy đảm bảo bạn đã cài đặt VS Code trên máy tính. Bạn có thể tải xuống tại \url{https://code.visualstudio.com/}.
+    \item \textbf{Extension Dev Containers:} Trong VS Code, hãy cài đặt extension có tên \textbf{Dev Containers} từ Microsoft. Bạn có thể tìm kiếm và cài đặt nó trong mục Extensions của VS Code.
+    \item \textbf{Docker:} Docker phải được cài đặt trên hệ thống của bạn. Bạn có thể tải xuống và cài đặt Docker Desktop cho Windows và macOS từ \url{https://www.docker.com/products/docker-desktop/} hoặc Docker Engine cho Linux thông qua trình quản lý gói của hệ thống.
+\end{itemize}
+
+\textbf{Hướng dẫn sử dụng Dev Containers:}
+\begin{enumerate}
+    \item \textbf{Clone mã nguồn:} Mở terminal hoặc command prompt và clone repository mã nguồn của dự án, đảm bảo clone cả các submodule:
+    \begin{verbatim}
+    git clone --recursive https://github.com/bhbghghbgb/ptpmmnm-clontify
+    cd ptpmmnm-clontify
+    \end{verbatim}
+    \item \textbf{Mở trong VS Code:} Mở thư mục \texttt{ptpmmnm-clontify} trong VS Code.
+    \item \textbf{Mở bằng Dev Container:} VS Code sẽ tự động phát hiện file cấu hình Dev Container (trong thư mục \texttt{.devcontainer} của cả \texttt{clontify\_server} và \texttt{fe-spotify}). Bạn sẽ nhận được một thông báo gợi ý mở thư mục trong Dev Container. Nhấn vào nút \textbf{``Reopen in Container''} hoặc sử dụng lệnh \textbf{``Dev Containers: Reopen in Container''} từ Command Palette (Ctrl+Shift+P hoặc Cmd+Shift+P).
+    \item \textbf{Phát triển tách biệt (tùy chọn):} Bạn cũng có thể mở trực tiếp thư mục \texttt{clontify\_server} hoặc \texttt{fe-spotify} trong VS Code và thực hiện tương tự để phát triển backend và frontend một cách độc lập trong các container riêng biệt.
+\end{enumerate}
+Sau khi VS Code mở trong Dev Container, bạn sẽ có một môi trường phát triển đã được cấu hình sẵn với các công cụ và dependencies cần thiết cho backend (Python) hoặc frontend (Node.js, tùy thuộc vào submodule bạn mở).
+
+\section{Cài đặt và chạy ứng dụng}
+\label{sec:application_setup}
+
+\subsection{Cấu hình các biến môi trường}
+\label{subsec:environment_variables}
+
+Các thông tin cấu hình quan trọng của ứng dụng được quản lý thông qua các biến môi trường. Bạn sẽ tìm thấy một file mẫu \texttt{env.example} trong thư mục gốc của repository.
+
+\textbf{Các bước cấu hình:}
+\begin{enumerate}
+    \item \textbf{Sao chép file mẫu:} Sao chép file \texttt{env.example} và đổi tên thành \texttt{.env}.
+    \item \textbf{Chỉnh sửa file \texttt{.env}:} Mở file \texttt{.env} và điền các giá trị cần thiết. Dưới đây là giải thích cho một số cấu hình quan trọng mà bạn cần thiết lập:
+    \begin{itemize}
+        \item \texttt{JWT\_SECRET\_KEY=your\_jwt\_secret\_key}: \textbf{Bắt buộc.} Đây là khóa bí mật được sử dụng để ký và xác minh JSON Web Tokens (JWT) cho việc xác thực người dùng. Hãy thay \texttt{your\_jwt\_secret\_key} bằng một chuỗi bí mật, phức tạp và duy nhất.
+        \item \texttt{EMAIL\_HOST\_USER=your\_email@example.com}: \textbf{Bắt buộc nếu sử dụng tính năng gửi email.} Địa chỉ email của bạn sẽ được sử dụng làm tài khoản gửi email (ví dụ: cho việc khôi phục mật khẩu). Thay \texttt{your\_email@example.com} bằng địa chỉ email thực của bạn.
+        \item \texttt{EMAIL\_HOST\_PASSWORD=your\_email\_password}: \textbf{Bắt buộc nếu sử dụng tính năng gửi email.} Mật khẩu của tài khoản email bạn đã cung cấp ở trên. Thay \texttt{your\_email\_password} bằng mật khẩu email thực của bạn.
+        \item \texttt{AWS\_ACCESS\_KEY\_ID=your\_aws\_access\_key\_id}: \textbf{Bắt buộc nếu triển khai trên AWS hoặc sử dụng S3.} Khóa truy cập AWS của bạn.
+        \item \texttt{AWS\_SECRET\_ACCESS\_KEY=your\_aws\_secret\_access\_key}: \textbf{Bắt buộc nếu triển khai trên AWS hoặc sử dụng S3.} Khóa bí mật AWS của bạn.
+        \item \texttt{AWS\_STORAGE\_BUCKET\_NAME=your\_bucket\_name}: \textbf{Bắt buộc nếu sử dụng S3.} Tên của S3 bucket bạn đã tạo để lưu trữ dữ liệu (ví dụ: file nhạc, ảnh). Thay \texttt{your\_bucket\_name} bằng tên bucket thực tế của bạn.
+        \item \texttt{AWS\_S3\_CUSTOM\_DOMAIN=your\_custom\_domain}: \textbf{Tùy chọn.} Nếu bạn đã cấu hình một custom domain cho S3 bucket của mình, hãy điền domain đó vào đây. Nếu không, bạn có thể để trống.
+    \end{itemize}
+    Các biến môi trường khác thường đã có giá trị mặc định hợp lý, nhưng bạn vẫn nên xem qua để tùy chỉnh nếu cần.
+\end{enumerate}
+
+\subsection{Chạy ứng dụng cục bộ (Local) bằng Docker Compose}
+\label{subsec:local_deployment}
+
+\textbf{Yêu cầu:} Đảm bảo Docker Desktop (trên Windows/macOS) hoặc Docker Engine và Docker Compose (trên Linux) đã được cài đặt và đang chạy.
+
+\textbf{Hướng dẫn:}
+\begin{enumerate}
+    \item \textbf{Clone mã nguồn (nếu chưa):} Thực hiện lệnh clone recursive như đã hướng dẫn ở phần cài đặt Dev Containers.
+    \item \textbf{Chuyển đến thư mục gốc:} Mở terminal hoặc command prompt và chuyển đến thư mục gốc của repository \texttt{ptpmmnm-clontify}.
+    \item \textbf{Chạy Docker Compose:} Chạy lệnh sau để khởi động toàn bộ ứng dụng (bao gồm cả backend và frontend):
+    \begin{verbatim}
+    docker-compose up -d
+    \end{verbatim}
+    Hoặc, để chạy riêng backend hoặc frontend, bạn có thể chuyển đến thư mục \texttt{clontify\_server} hoặc \texttt{fe-spotify} và chạy lệnh \texttt{docker-compose up -d} tại đó.
+    \item \textbf{Truy cập ứng dụng:}
+    \begin{itemize}
+        \item \textbf{Frontend:} Thường được chạy tại \texttt{http://localhost:3000} (hoặc cổng khác tùy thuộc vào cấu hình trong \texttt{fe-spotify/docker-compose.yml}).
+        \item \textbf{Backend:} Thường được chạy tại \texttt{http://localhost:8080} (hoặc cổng khác tùy thuộc vào cấu hình trong \texttt{clontify\_server/docker-compose.yml}).
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Triển khai trên AWS}
+\label{subsec:aws_deployment}
+
+Việc triển khai ứng dụng lên AWS đòi hỏi bạn phải có tài khoản AWS và kiến thức cơ bản về các dịch vụ của AWS. Dưới đây là một hướng dẫn tổng quan cho người mới bắt đầu:
+
+\textbf{Các bước cơ bản:}
+\begin{enumerate}
+    \item \textbf{Tạo tài khoản AWS:} Nếu bạn chưa có, hãy tạo một tài khoản AWS tại \url{https://aws.amazon.com/}.
+    \item \textbf{Cấu hình AWS CLI:} Cài đặt và cấu hình AWS Command Line Interface (CLI) trên máy tính của bạn để tương tác với các dịch vụ AWS thông qua dòng lệnh. Tham khảo hướng dẫn tại \url{https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html}.
+    \item \textbf{Tạo S3 Bucket:} Sử dụng AWS Management Console hoặc AWS CLI để tạo một S3 bucket trong region bạn muốn (ví dụ: \texttt{ap-southeast-2} như cấu hình). Hãy nhớ tên bucket này và điền vào biến môi trường \texttt{AWS\_STORAGE\_BUCKET\_NAME}.
+    \item \textbf{Tạo ECR Repository (cho Docker Images):} Sử dụng AWS Management Console hoặc AWS CLI để tạo các repository trong Amazon Elastic Container Registry (ECR) cho Docker images của backend và frontend.
+    \item \textbf{Build và Push Docker Images:}
+    \begin{itemize}
+        \item Chuyển đến thư mục \texttt{clontify\_server} và build image backend: \texttt{docker build -t <tên\_ecr\_repository\_backend>:latest .} Sau đó, login vào ECR và push image lên.
+        \item Tương tự, chuyển đến thư mục \texttt{fe-spotify} và build image frontend: \texttt{docker build -t <tên\_ecr\_repository\_frontend>:latest .} Sau đó, login vào ECR và push image lên.
+    \end{itemize}
+    \item \textbf{Chọn dịch vụ triển khai:} AWS cung cấp nhiều dịch vụ để chạy container, phổ biến nhất là Amazon ECS (Elastic Container Service) hoặc Amazon EKS (Elastic Kubernetes Service). Đối với người mới bắt đầu, ECS có thể đơn giản hơn.
+    \item \textbf{Cấu hình và triển khai ECS (ví dụ):}
+    \begin{itemize}
+        \item Tạo một Cluster ECS.
+        \item Định nghĩa Task Definition cho backend và frontend, chỉ định image từ ECR, tài nguyên (CPU, memory), và các biến môi trường (bao gồm cả AWS keys và bucket name).
+        \item Tạo Service ECS để chạy các task trên cluster.
+        \item Cấu hình Network (ví dụ: Security Groups, Load Balancer) để ứng dụng có thể truy cập được từ bên ngoài.
+    \end{itemize}
+    \item \textbf{Quản lý S3 Permissions:} Đảm bảo rằng các ECS tasks (hoặc các IAM roles liên quan) có quyền đọc và ghi vào S3 bucket của bạn.
+\end{enumerate}
