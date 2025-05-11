@@ -1,0 +1,84 @@
+% \chapter{Technology Stack and Development Process}
+\chapter{Các công nghệ sử dụng và Quy trình phát triển}
+\label{ch:tech_stack}
+
+\section{Công nghệ sử dụng}
+\label{sec:tech_used}
+
+\subsection{Python}
+Python là một ngôn ngữ lập trình cấp cao, thông dịch, đa mục đích. Nó nổi tiếng với cú pháp rõ ràng, dễ đọc và một hệ sinh thái thư viện phong phú, mạnh mẽ. Trong dự án này, Python được sử dụng chủ yếu cho việc phát triển backend.
+\textit{Tìm hiểu thêm tại:} \url{https://www.python.org/}
+
+\subsection{Django}
+Django là một framework web cấp cao của Python, tuân theo kiến trúc Model-Template-View (MTV). Django cung cấp nhiều công cụ và tính năng sẵn có, giúp việc phát triển các ứng dụng web phức tạp trở nên nhanh chóng và hiệu quả. Chúng em sử dụng Django để xây dựng các API backend và quản lý logic nghiệp vụ của ứng dụng.
+\textit{Tìm hiểu thêm tại:} \url{https://www.djangoproject.com/}
+
+\subsection{React}
+React là một thư viện JavaScript mã nguồn mở để xây dựng giao diện người dùng (UI) hoặc các thành phần UI. Nó được duy trì bởi Facebook và một cộng đồng lớn các nhà phát triển. React nổi bật với khả năng xây dựng các ứng dụng web đơn trang (SPA) hiệu suất cao và trải nghiệm người dùng mượt mà. Chúng em sử dụng React để phát triển frontend của ứng dụng Spotify Clone.
+\textit{Tìm hiểu thêm tại:} \url{https://react.dev/}
+
+\subsection{PostgreSQL}
+PostgreSQL là một hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) mã nguồn mở mạnh mẽ và tuân thủ tiêu chuẩn SQL. Nó nổi tiếng với tính ổn định, độ tin cậy và nhiều tính năng nâng cao. Chúng em sử dụng PostgreSQL để lưu trữ tất cả dữ liệu liên quan đến ứng dụng, bao gồm thông tin người dùng, bài hát, album và các dữ liệu khác.
+\textit{Tìm hiểu thêm tại:} \url{https://www.postgresql.org/}
+
+\subsection{Amazon Web Services (AWS)}
+Amazon Web Services (AWS) là một nền tảng dịch vụ đám mây toàn diện và được sử dụng rộng rãi trên toàn thế giới. Nó cung cấp nhiều dịch vụ khác nhau, bao gồm điện toán, lưu trữ, cơ sở dữ liệu và nhiều hơn nữa. Chúng em sử dụng AWS để host ứng dụng và tận dụng các dịch vụ của nó để đảm bảo tính khả dụng và khả năng mở rộng.
+\textit{Tìm hiểu thêm tại:} \url{https://aws.amazon.com/}
+
+\subsection{Amazon S3 (Simple Storage Service)}
+Amazon S3 là một dịch vụ lưu trữ đối tượng có khả năng mở rộng cao, an toàn và hiệu suất cao của AWS. Chúng em sử dụng S3 để lưu trữ các tệp âm nhạc, video và các nội dung tĩnh khác của ứng dụng.
+\textit{Tìm hiểu thêm tại:} \url{https://aws.amazon.com/s3/}
+
+\subsection{Docker}
+Docker là một nền tảng cho phép đóng gói và chạy ứng dụng trong các container. Container là các gói phần mềm độc lập, chứa tất cả các thư viện, dependencies và cấu hình cần thiết để chạy ứng dụng. Chúng em sử dụng Docker để container hóa các microservice của ứng dụng, giúp việc triển khai và quản lý trở nên dễ dàng và nhất quán trên các môi trường khác nhau.
+\textit{Tìm hiểu thêm tại:} \url{https://www.docker.com/}
+
+\subsection{gRPC}
+gRPC là một framework RPC (Remote Procedure Call) mã nguồn mở, hiệu suất cao, được phát triển bởi Google. Nó sử dụng Protocol Buffers (Protobuf) làm ngôn ngữ định nghĩa interface, cho phép định nghĩa các dịch vụ và cấu trúc dữ liệu một cách hiệu quả. Chúng em sử dụng gRPC để xây dựng các giao tiếp giữa các microservice trong kiến trúc của ứng dụng.
+\textit{Tìm hiểu thêm tại:} \url{https://grpc.io/}
+
+\subsection{Protocol Buffers (Protobuf)}
+Protocol Buffers (Protobuf) là một cơ chế serialization dữ liệu ngôn ngữ trung lập, nền tảng trung lập, có thể mở rộng. Nó được sử dụng với gRPC để định nghĩa cấu trúc dữ liệu (message) và các dịch vụ, đảm bảo việc truyền dữ liệu giữa các microservice diễn ra một cách nhanh chóng và hiệu quả.
+\textit{Tìm hiểu thêm tại:} \url{https://protobuf.dev/}
+
+\section{Quy trình phát triển}
+\label{sec:dev_process}
+
+\subsection{Mô hình Waterfall}
+Mô hình Waterfall là một mô hình phát triển phần mềm tuyến tính, tuần tự. Trong mô hình này, các giai đoạn phát triển (phân tích yêu cầu, thiết kế, hiện thực, kiểm thử, triển khai, bảo trì) được thực hiện theo một trình tự nhất định, với mỗi giai đoạn chỉ bắt đầu khi giai đoạn trước đó đã hoàn thành. Chúng em áp dụng mô hình Waterfall cho các giai đoạn chính của dự án để đảm bảo một quy trình có cấu trúc và dễ quản lý.
+\textit{Tìm hiểu thêm tại:} \url{https://en.wikipedia.org/wiki/Waterfall_model}
+
+\subsection{Mô hình MVC (Model-View-Controller)}
+MVC là một mẫu thiết kế phần mềm phổ biến được sử dụng để tổ chức mã nguồn trong các ứng dụng web. Nó chia ứng dụng thành ba thành phần chính:
+\begin{itemize}
+    \item \textbf{Model:} Quản lý dữ liệu của ứng dụng.
+    \item \textbf{View:} Hiển thị dữ liệu cho người dùng.
+    \item \textbf{Controller:} Xử lý các tương tác của người dùng và cập nhật Model và View.
+\end{itemize}
+Chúng em áp dụng mô hình MVC trong framework Django để xây dựng backend của ứng dụng một cách có cấu trúc và dễ bảo trì.
+\textit{Tìm hiểu thêm tại:} \url{https://en.wikipedia.org/wiki/Model-view-controller}
+
+\subsection{Kiến trúc Microservice}
+Kiến trúc Microservice là một phương pháp tiếp cận để xây dựng một ứng dụng như một tập hợp các dịch vụ nhỏ, độc lập, giao tiếp với nhau thông qua mạng. Mỗi microservice thường tập trung vào một chức năng cụ thể của ứng dụng và có thể được phát triển, triển khai và mở rộng một cách độc lập. Chúng em sử dụng kiến trúc microservice để tăng tính linh hoạt, khả năng mở rộng và khả năng chịu lỗi của ứng dụng Spotify Clone.
+\textit{Tìm hiểu thêm tại:} \url{https://martinfowler.com/articles/microservices.html}
+
+\subsection{Container hóa với Docker}
+Container hóa là quá trình đóng gói một ứng dụng và tất cả các dependencies của nó (thư viện, runtime, công cụ hệ thống, code) vào một container duy nhất. Docker là một nền tảng hàng đầu cho việc container hóa. Việc sử dụng Docker giúp đảm bảo rằng ứng dụng có thể chạy một cách nhất quán trên bất kỳ môi trường nào hỗ trợ Docker, từ máy phát triển đến môi trường production trên AWS.
+\textit{Tìm hiểu thêm tại:} \url{https://www.docker.com/what-is-a-container/}
+
+\subsection{Controller/Service/Repository Pattern}
+Đây là một pattern thường được sử dụng trong các ứng dụng backend phức tạp để tách biệt các tầng trách nhiệm khác nhau:
+\begin{itemize}
+    \item \textbf{Controller:} Xử lý các request từ bên ngoài (ví dụ: từ frontend) và điều hướng logic nghiệp vụ.
+    \item \textbf{Service:} Chứa logic nghiệp vụ cốt lõi của ứng dụng.
+    \item \textbf{Repository:} Chịu trách nhiệm cho việc truy cập và thao tác với dữ liệu từ cơ sở dữ liệu.
+\end{itemize}
+Chúng em áp dụng pattern này trong các microservice Django để tổ chức code một cách rõ ràng và dễ quản lý.
+\begin{comment}
+\textit{Tìm hiểu thêm (ví dụ về pattern tương tự trong Java Spring):} \url{https://www.baeldung.com/spring-data-jpa-tutorial} (Bạn có thể tìm kiếm các tài liệu tương tự cho Python/Django)
+\end{comment}
+
+\subsection{gRPC và Protobuf trong giao tiếp Microservice}
+gRPC là framework RPC và Protobuf là ngôn ngữ serialization được sử dụng để định nghĩa và trao đổi dữ liệu giữa các microservice. Việc sử dụng gRPC và Protobuf giúp cho giao tiếp giữa các dịch vụ trở nên nhanh chóng, hiệu quả và có cấu trúc rõ ràng nhờ vào việc định nghĩa contract (interface) một cách chặt chẽ.
+\textit{Tìm hiểu thêm về gRPC Use Cases:} \url{https://grpc.io/docs/what-is-grpc/core-concepts/#use-cases}
+\textit{Tìm hiểu thêm về Protobuf Basics:} \url{https://protobuf.dev/getting-started/overview/}

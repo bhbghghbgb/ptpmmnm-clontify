@@ -4,7 +4,16 @@
 %%----------------------------------------------------------------------------------
 \documentclass[a4paper,11pt,oneside]{book} 
 \usepackage{CS_report} % DO NOT REMOVE THIS LINE. 
+
+\usepackage[vietnamese]{babel}
+\usepackage{comment}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\groupno{8}
+\def\groupuninamel{Trường Đại Học Sài Gòn}
+\def\groupuniname{SGU}
+\def\groupdepnamel{Công Nghệ Thông Tin}
+\def\groupdepname{CNTT}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -19,8 +28,10 @@
     \begin{titlepage}      
         \begin{center}
             \includegraphics[width=3cm]{figures/uorlogo.png}\\[0.5cm]
-            {\LARGE University of Reading\\[0.5cm]
-            Department of Computer Science}\\[2cm]
+            % {\LARGE University of Reading\\[0.5cm]
+            % Department of Computer Science}\\[2cm]
+            {\LARGE \groupuninamel\\[0.5cm]
+            Khoa \groupdepnamel}\\[2cm]
 			%{\color{blue} \rule{\textwidth}{1pt}}
 			
 			% -------------------------------
@@ -31,7 +42,8 @@
                 %TODO: 1 TITLE of Your PROJECT 
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
                 % change the following line                
-                Computer Science Report Template and Report Writing Guide
+                % Computer Science Report Template and Report Writing Guide
+                Xây dựng ứng dụng Clone Spotify
             
             }
             \linespread{1}~\\[2cm]
@@ -41,7 +53,10 @@
                 %TODO: 2 YOUR NAME
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%             
                 % change the following line
-                FirstName(s) LastName
+                % FirstName(s) LastName
+                3121410071 - Huỳnh Gia Bảo - huynhgiabaodhsg@gmail.com
+                3121410071 - Huỳnh Gia Bảo - huynhgiabaodhsg@gmail.com
+                3121410071 - Huỳnh Gia Bảo - huynhgiabaodhsg@gmail.com
                 % change end             
             }\\[1cm] 
             
@@ -51,8 +66,10 @@
                 %TODO: 3 YOUR NAME Supervisor's name(s)
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%             
                 % change the following line                
-                \emph{Supervisor:} Supervisor's Name}\\[1cm] % if applicable
-            
+                % \emph{Supervisor:} Supervisor's Name}\\[1cm] % if applicable
+                \emph{Giảng viên:} Từ Lãng Phiêu}\\[1cm]
+
+\begin{comment}
     		% PLEASE DO NOT CHANGE THIS TEXT %
             \large A report submitted in partial fulfilment of the requirements of\\the University of Reading for the degree of\\
             %%%
@@ -61,6 +78,7 @@
             %% 
             %TODO:  verify your degree in
             in \textit{Data Science and Advanced Computing}\\[0.3cm] 
+\end{comment}
             \vfill
             
             
@@ -69,44 +87,67 @@
     \end{titlepage}
     
     
+\begin{comment}
     % -------------------------------------------------------------------
     % Declaration
     % -------------------------------------------------------------------
     \newpage
     \thispagestyle{empty}
-    \chapter*{\Large Declaration}
+    % \chapter*{\Large Declaration}
+    \chapter*{\Large Lời cam đoanđoan}
     % PLEASE CHANGE THIS TEXT EXCEPT YOUR NAME%
     % -------------------------------
-    %TODO: PLEASE ONLY UPDATE HERE -- PLEASE WRITE YOUR NAME %    
-    % ------------------------------- 
+    %TODO: PLEASE ONLY UPDATE HERE -- PLEASE WRITE YOUR NAME %
+    % -------------------------------
     I,
     %%%%%%%%%%%%%%%%%%%%%%%
-     Firstname(s) Lastname, % Madatory part  TODO
+    Firstname(s) Lastname, % Madatory part  TODO
     %%%%%%%%%%%%%%%%%%%%%%%
     of the Department of Computer Science, University of Reading, confirm that this is my own work and figures, tables, equations, code snippets, artworks, and illustrations in this report are original and have not been taken from any other person's work, except where the works of others have been explicitly acknowledged, quoted, and referenced. I understand that if failing to do so will be considered a case of plagiarism. Plagiarism is a form of academic misconduct and will be penalised accordingly. \\
-    
-    %% Please delete as appropriate. 
+
+    %% Please delete as appropriate.
     \noindent
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
-    %TODO 1 Consent for example copy -  we will use 
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %TODO 1 Consent for example copy -  we will use
     I give consent to a copy of my report being shared with future students as an exemplar. \\
-    
+
     \noindent
-    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %TODO 2 Consent to let the report to use use by library for public use
-    I give consent for my work to be made available more widely to members of UoR and public with interest in teaching, learning and research. 
+    I give consent for my work to be made available more widely to members of UoR and public with interest in teaching, learning and research.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     ~\\[1cm]
     \begin{flushright}
-	%------------------------------ 
-	% change the following line
+    %------------------------------
+    % change the following line
     %TODO: PLEASE UPDATE  Your Name  -------------------------------%
-	Firstname(s) Lastname % Please change it to your name
-    
+    Firstname(s) Lastname % Please change it to your name
+
     \today
     \end{flushright}
+\end{comment}
+    % -------------------------------------------------------------------
+    % Lời cam đoan (phiên bản tiếng Việt đã chỉnh sửa)
+    % -------------------------------------------------------------------
+    \newpage
+    \thispagestyle{empty}
+    \chapter*{\Large Lời cam đoan}
+    Chúng em, Nhóm \groupno, xác nhận rằng đây là công trình của riêng nhóm và các hình ảnh, bảng biểu, phương trình, đoạn mã, tác phẩm nghệ thuật và hình minh họa trong báo cáo này là nguyên bản và không được lấy từ công trình của bất kỳ người nào khác, ngoại trừ những trường hợp mà các công trình của người khác đã được trích dẫn, ghi nhận và tham khảo rõ ràng. Chúng em hiểu rằng việc không tuân thủ điều này sẽ bị coi là hành vi đạo văn. Đạo văn là một hình thức vi phạm học thuật và sẽ bị xử lý theo quy định.\\
+    
+    \noindent
+    Chúng em đồng ý cho phép chia sẻ bản sao báo cáo này với sinh viên các khóa sau như một tài liệu tham khảo.\\
+    
+    \noindent
+    Chúng em đồng ý cho phép thư viện sử dụng báo cáo này rộng rãi hơn cho các thành viên của trường và công chúng quan tâm đến giảng dạy, học tập và nghiên cứu.\\
+    ~\\[1cm]
+    \begin{flushright}
+    	Nhóm \groupno
+    
+    	\today
+    \end{flushright}
 
-     
+
+\begin{comment}
     % -------------------------------------------------------------------
     % Abstract and Acknowledgement
     % -------------------------------------------------------------------
@@ -117,7 +158,8 @@
 	% -------------------------------------------------------------------
    
     \input{chapters/00_ii_acknowledgments}   
-    
+\end{comment}
+
     % -------------------------------------------------------------------
     % Contents, list of figures, list of tables
     % -------------------------------------------------------------------
@@ -141,8 +183,10 @@
     % Read for preparation of document in LaTex 
     % Lamport, L. (1986), LATEX: A Document Preparation System, Addison-Wesley.
     
-    \input{chapters/01_introduction}
-    \input{chapters/02_literature} % https://guides.library.bloomu.edu/litreview
+    % \input{chapters/01_introduction}
+    \input{my_chapters/01_introduction}
+    % \input{chapters/02_literature} % https://guides.library.bloomu.edu/litreview
+    \input{my_chapters/02_techstacks}
     \input{chapters/03_methodology}
     \input{chapters/04_results}
     \input{chapters/05_discussion}
