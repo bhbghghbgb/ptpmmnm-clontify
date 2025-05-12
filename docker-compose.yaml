@@ -1,0 +1,3 @@
+include:
+  - clontify_server/docker-compose.yml
+  - fe-spotify/docker-compose.yml
