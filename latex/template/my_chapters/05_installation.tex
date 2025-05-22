@@ -2,7 +2,7 @@
 \chapter{Cách thức cài đặt và Môi trường chạy ứng dụng}
 \label{ch:installation}
 
-\section{Cài đặt môi trường phát triển (Dev Containers)}
+\section{Cài đặt môi trường phát triển (với Dev Containers)}
 \label{sec:dev_environment_setup}
 
 Để có một môi trường phát triển nhất quán và dễ dàng thiết lập, dự án này khuyến khích sử dụng Dev Containers. Với Dev Containers, môi trường phát triển đã được cấu hình sẵn trong các container Docker, giúp bạn không cần lo lắng về việc cài đặt các dependency phức tạp trên máy cục bộ.
@@ -45,7 +45,7 @@ Các thông tin cấu hình quan trọng của ứng dụng được quản lý 
         \item \texttt{EMAIL\_HOST\_PASSWORD=your\_email\_password}: \textbf{Bắt buộc nếu sử dụng tính năng gửi email.} Mật khẩu của tài khoản email bạn đã cung cấp ở trên. Thay \texttt{your\_email\_password} bằng mật khẩu email thực của bạn.
         \item \texttt{AWS\_ACCESS\_KEY\_ID=your\_aws\_access\_key\_id}: \textbf{Bắt buộc nếu triển khai trên AWS hoặc sử dụng S3.} Khóa truy cập AWS của bạn.
         \item \texttt{AWS\_SECRET\_ACCESS\_KEY=your\_aws\_secret\_access\_key}: \textbf{Bắt buộc nếu triển khai trên AWS hoặc sử dụng S3.} Khóa bí mật AWS của bạn.
-        \item \texttt{AWS\_STORAGE\_BUCKET\_NAME=your\_bucket\_name}: \textbf{Bắt buộc nếu sử dụng S3.} Tên của S3 bucket bạn đã tạo để lưu trữ dữ liệu (ví dụ: file nhạc, ảnh). Thay \texttt{your\_bucket\_name} bằng tên bucket thực tế của bạn.
+        \item \texttt{AWS\_STORAGE\_BUCKET\_NAME=your\_bucket\_name}: \textbf{Bắt buộc nếu sử dụng S3.} Tên của S3 bucket bạn đã tạo để lưu trữ dữ liệu. Thay \texttt{your\_bucket\_name} bằng tên bucket thực tế của bạn.
         \item \texttt{AWS\_S3\_CUSTOM\_DOMAIN=your\_custom\_domain}: \textbf{Tùy chọn.} Nếu bạn đã cấu hình một custom domain cho S3 bucket của mình, hãy điền domain đó vào đây. Nếu không, bạn có thể để trống.
     \end{itemize}
     Các biến môi trường khác thường đã có giá trị mặc định hợp lý, nhưng bạn vẫn nên xem qua để tùy chỉnh nếu cần.
@@ -67,8 +67,8 @@ Các thông tin cấu hình quan trọng của ứng dụng được quản lý 
     Hoặc, để chạy riêng backend hoặc frontend, bạn có thể chuyển đến thư mục \texttt{clontify\_server} hoặc \texttt{fe-spotify} và chạy lệnh \texttt{docker-compose up -d} tại đó.
     \item \textbf{Truy cập ứng dụng:}
     \begin{itemize}
-        \item \textbf{Frontend:} Thường được chạy tại \texttt{http://localhost:3000} (hoặc cổng khác tùy thuộc vào cấu hình trong \texttt{fe-spotify/docker-compose.yml}).
-        \item \textbf{Backend:} Thường được chạy tại \texttt{http://localhost:8080} (hoặc cổng khác tùy thuộc vào cấu hình trong \texttt{clontify\_server/docker-compose.yml}).
+        \item \textbf{Frontend:} Được chạy tại \texttt{http://localhost:5173} (có thể cấu hình lại trong file \texttt{fe-spotify/docker-compose.yml}), port mở của server trong container là \texttt{5173}.
+        \item \textbf{Backend:} Được chạy tại \texttt{http://localhost:8080-8083} (có thể cấu hình lại trong file \texttt{clontify\_server/docker-compose.yml}), port mở của server trong container là từ \texttt{8080} đến \texttt{8083} tùy service.
     \end{itemize}
 \end{enumerate}
 

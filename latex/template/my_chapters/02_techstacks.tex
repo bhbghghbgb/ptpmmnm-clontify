@@ -69,7 +69,7 @@ Container hóa là quá trình đóng gói một ứng dụng và tất cả cá
 \subsection{Controller/Service/Repository Pattern}
 Đây là một pattern thường được sử dụng trong các ứng dụng backend phức tạp để tách biệt các tầng trách nhiệm khác nhau:
 \begin{itemize}
-    \item \textbf{Controller:} Xử lý các request từ bên ngoài (ví dụ: từ frontend) và điều hướng logic nghiệp vụ.
+    \item \textbf{Controller:} Xử lý các request từ bên ngoài (frontend) và điều hướng logic nghiệp vụ.
     \item \textbf{Service:} Chứa logic nghiệp vụ cốt lõi của ứng dụng.
     \item \textbf{Repository:} Chịu trách nhiệm cho việc truy cập và thao tác với dữ liệu từ cơ sở dữ liệu.
 \end{itemize}
@@ -80,5 +80,5 @@ Chúng em áp dụng pattern này trong các microservice Django để tổ ch�
 
 \subsection{gRPC và Protobuf trong giao tiếp Microservice}
 gRPC là framework RPC và Protobuf là ngôn ngữ serialization được sử dụng để định nghĩa và trao đổi dữ liệu giữa các microservice. Việc sử dụng gRPC và Protobuf giúp cho giao tiếp giữa các dịch vụ trở nên nhanh chóng, hiệu quả và có cấu trúc rõ ràng nhờ vào việc định nghĩa contract (interface) một cách chặt chẽ.
-\textit{Tìm hiểu thêm về gRPC Use Cases:} \url{https://grpc.io/docs/what-is-grpc/core-concepts/#use-cases}
-\textit{Tìm hiểu thêm về Protobuf Basics:} \url{https://protobuf.dev/getting-started/overview/}
+\textit{Tìm hiểu thêm về gRPC:} \url{https://grpc.io/docs/what-is-grpc/core-concepts/}
+\textit{Tìm hiểu thêm về Protobuf:} \url{https://protobuf.dev/getting-started/overview/}
